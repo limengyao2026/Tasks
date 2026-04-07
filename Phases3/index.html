@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时光治愈小树洞</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        :root {
+            --bg: linear-gradient(120deg, #ffeef8, #f0f8ff);
+            --card: rgba(255,255,255,0.85);
+            --text: #444;
+            --main: #ff87ab;
+            --heart: #ff5c8d;
+            --shadow: 0 8px 24px rgba(255,150,180,0.2);
+            --reply-bg: #fef2f7;
+        }
+
+        body.night {
+            --bg: linear-gradient(120deg, #1a1a2e, #16213e);
+            --card: rgba(30,35,60,0.8);
+            --text: #eaeaea;
+            --main: #84a9ff;
+            --heart: #ff87ab;
+            --shadow: 0 8px 24px rgba(0,0,0,0.3);
+            --reply-bg: #2a2a4a;
+        }
+
+        body {
+            min-height: 200vh;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.5s ease;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--main);
+            margin-bottom: 1rem;
+        }
+        h2{
+            font-size:1.5rem;
+            color:var(--main);
+            margin:2rem 0 1rem;
+        }
+
+        .switch-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            border: none;
+            background: var(--main);
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .switch-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .heart {
+            font-size: 3rem;
+            color: var(--heart);
+            animation: beat 1s infinite alternate;
+            margin: 1rem 0;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        .quote {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+        }
+
+        .refresh-quote {
+            border: 1px solid var(--main);
+            background: transparent;
+            color: var(--main);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .refresh-quote:hover {
+            background: var(--main);
+            color: #fff;
+        }
+
+        .divider {
+            margin: 4rem 0;
+            opacity: 0.25;
+        }
+
+        /* 时钟模块 */
+        .clock-card{
+            font-size:2rem;
+            font-weight:bold;
+            padding:2rem;
+        }
+
+        /* 心情打分 */
+        .score-group{
+            margin:1rem 0;
+        }
+        .score-btn{
+            padding:0.5rem;
+            margin:0.3rem;
+            border-radius:50%;
+            border:none;
+            background:var(--main);
+            color:#fff;
+            cursor:pointer;
+        }
+
+        /* 轮播短句 */
+        .slide-text{
+            height:60px;
+            line-height:60px;
+            font-size:1.1rem;
+        }
+
+        /* 画廊小卡片 */
+        .gallery{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:1rem;
+            margin:2rem 0;
+        }
+        .gallery-item{
+            padding:1.5rem;
+            border-radius:16px;
+            background:var(--card);
+            box-shadow:var(--shadow);
+        }
+
+        /* 树洞留言 */
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(200,200,200,0.3);
+            background: var(--card);
+            backdrop-filter: blur(8px);
+            color: var(--text);
+            resize: none;
+            min-height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .submit-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            background: var(--main);
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .msg-item {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            box-shadow: var(--shadow);
+        }
+
+        .msg-content {
+            margin-bottom: 0.8rem;
+        }
+
+        .reply-area {
+            border-top: 1px solid rgba(150,150,150,0.2);
+            padding-top: 0.8rem;
+        }
+
+        .reply-input {
+            width: 100%;
+             padding: 0.6rem;
+             border-radius: 8px;
+             border: 1px solid #ccc;
+             margin-bottom: 0.5rem;
+             background: var(--card);
+             color: var(--text);
+         }
+         .reply-btn {
+             padding: 0.3rem 0.8rem;
+             border: none;
+             border-radius: 6px;
+             background: var(--main);
+             color: #fff;
+             cursor: pointer;
+         }
+         .reply-list {
+             margin-top: 0.8rem;
+         }
+         .reply-one {
+             background: var(--reply-bg);
+             padding: 0.5rem;
+             border-radius: 6px;
+             margin-bottom: 0.4rem;
+             font-size: 0.9rem;
+         }
+         /* 回到顶部悬浮按钮 */
+         .back-top{
+             position:fixed;
+             bottom:30px;
+             right:20px;
+             width:50px;
+             height:50px;
+             border-radius:50%;
+             background:var(--main);
+             color:#fff;
+             border:none;
+             font-size:18px;
+             cursor:pointer;
+         }
+         .footer-tip {
+             margin-top: 5rem;
+             padding-bottom:3rem;
+             font-size: 0.9rem;
+             opacity: 0.7;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="container">
+         <!-- 头部治愈区 -->
+         <h1>✨ 时光治愈小树洞 ✨</h1>
+         <button class="switch-btn" id="modeBtn">切换深夜模式</button>
+         <div class="card">
+             <div class="heart">❤</div>
+             <div class="quote" id="quoteBox">加载暖心语录中...</div>
+             <button class="refresh-quote" id="newQuoteBtn">换一句温暖</button>
+         </div>
+         <hr class="divider">
+         <!-- 新增：实时时钟 -->
+         <div class="card clock-card" id="clockBox">00:00:00</div>
+         <hr class="divider">
+         <!-- 新增：今日心情打分 -->
+         <h2>☁ 给今天的心情打个分</h2>
+         <div class="card score-group">
+             <button class="score-btn">1</button>
+             <button class="score-btn">2</button>
+             <button class="score-btn">3</button>
+             <button class="score-btn">4</button>
+             <button class="score-btn">5</button>
+             <p id="scoreTip">还没有选择心情分数哦</p >
+         </div>
+         <hr class="divider">
+         <!-- 新增：轮播温柔短句 -->
+         <h2>🌿 今日温柔短句轮播</h2>
+         <div class="card slide-text" id="slideText"></div>
+         <hr class="divider">
+         <!-- 新增：治愈画廊卡片 -->
+         <h2>🎨 治愈小画廊</h2>
+         <div class="gallery">
+             <div class="gallery-item">阳光总会拨开乌云</div>
+             <div class="gallery-item">慢慢来一切来得及</div>
+             <div class="gallery-item">你已经很努力啦</div>
+             <div class="gallery-item">今天也要温柔待己</div>
+         </div>
+         <hr class="divider">
+         <!-- 超长树洞留言区 -->
+         <div class="tree-hole">
+             <h2>🌳 烦恼树洞 · 写下心事互相治愈</h2>
+             <textarea id="troubleText" placeholder="在这里写下你的烦恼和心事……"></textarea>
+             <button class="submit-btn" id="sendBtn">投递心事</button>
+             <div id="msgBoard"></div>
+         </div>
+         <div class="footer-tip">
+             愿每一份心事，都有人温柔回应 💫 
+         </div>
+     </div>
+     <!-- 回到顶部悬浮按钮 -->
+     <button class="back-top" id="backTopBtn">↑</button>
+     <script>
+         // 暖心语录
+         const quoteList = [
+             "慢慢来，谁都有闪闪发光的时候。",
+             "今天辛苦啦，记得好好休息一下。",
+             "前路漫漫亦灿灿，一切都会变好的。",
+             "你正在努力的样子，真的超级耀眼。",
+             "不必焦虑，花期各自不同。"
+         ];
+         // 轮播短句
+         const slideList = [
+             "生活有点难，但你超勇敢",
+             "休息不是偷懒是蓄力",
+             "乌云会散星光会亮",
+             "允许自己偶尔不完美",
+             "此刻平安就是幸福"
+         ];
+         let msgList = JSON.parse(localStorage.getItem("treeMsg")) || [];
+         let slideIndex = 0;
+         const modeBtn = document.getElementById('modeBtn');
+         const quoteBox = document.getElementById('quoteBox');
+         const newQuoteBtn = document.getElementById('newQuoteBtn');
+         const troubleText = document.getElementById('troubleText');
+         const sendBtn = document.getElementById('sendBtn');
+         const msgBoard = document.getElementById('msgBoard');
+         const clockBox = document.getElementById('clockBox');
+         const slideText = document.getElementById('slideText');
+         const backTopBtn = document.getElementById('backTopBtn');
+         const scoreTip = document.getElementById('scoreTip');
+         const scoreBtns = document.querySelectorAll('.score-btn');
+         // 主题记忆
+         if(localStorage.getItem('pageMode') === 'night'){
+             document.body.classList.add('night');
+             modeBtn.innerText = "切换白昼模式";
+         }
+         // 随机语录
+         function showRandomQuote(){
+             let rnd = Math.floor(Math.random() * quoteList.length);
+             quoteBox.innerText = quoteList[rnd];
+         }
+         // 实时时钟
+         function updateClock(){
+             let now = new Date();
+             let h = String(now.getHours()).padStart(2,'0');
+             let m = String(now.getMinutes()).padStart(2,'0');
+             let s = String(now.getSeconds()).padStart(2,'0');
+             clockBox.innerText = `${h}:${m}:${s}`;
+         }
+         setInterval(updateClock,1000);
+         // 短句轮播
+         function slideLoop(){
+             slideText.innerText = slideList[slideIndex];
+             slideIndex = (slideIndex+1) % slideList.length;
+         }
+         setInterval(slideLoop,2500);
+         // 心情打分
+         scoreBtns.forEach(btn=>{
+             btn.addEventListener('click',()=>{
+                 scoreTip.innerText = `你给今天打了 ${btn.innerText} 分，要好好照顾自己✨`;
+             });
+         });
+         // 回到顶部
+         backTopBtn.addEventListener('click',()=>{
+             window.scrollTo({top:0,behavior:'smooth'});
+         });
+         // 主题切换
+         modeBtn.addEventListener('click',()=>{
+             document.body.classList.toggle('night');
+             if(document.body.classList.contains('night')){
+                 localStorage.setItem('pageMode','night');
+                 modeBtn.innerText = "切换白昼模式";
+             }else{
+                 localStorage.setItem('pageMode','day');
+                 modeBtn.innerText = "切换深夜模式";
+             }
+         });
+         newQuoteBtn.addEventListener('click', showRandomQuote);
+         // 渲染留言+回复
+         function renderMsg(){
+             msgBoard.innerHTML = "";
+             msgList.forEach((msg, idx)=>{
+                 let div = document.createElement("div");
+                 div.className = "msg-item";
+                 div.innerHTML = `
+                     <div class="msg-content">📝 心事：${msg.content}</div>
+                     <div class="reply-area">
+                         <input class="reply-input" placeholder="写下温柔回复……" data-idx="${idx}">
+                         <button class="reply-btn" data-reply="${idx}">发送回复</button>
+                         <div class="reply-list" id="replyWrap${idx}">
+                             ${msg.replyArr.map(r=>`<div class="reply-one">💬 ${r}</div>`).join("")}
+                         </div>
+                     </div>
+                 `;
+                 msgBoard.appendChild(div);
+             });
+             localStorage.setItem("treeMsg",JSON.stringify(msgList));
+         }
+         // 投递烦恼
+         sendBtn.addEventListener("click",()=>{
+             let val = troubleText.value.trim();
+             if(!val) return alert("心事不能为空哦~");
+             msgList.push({ content:val, replyArr:[] });
+             troubleText.value = "";
+             renderMsg();
+         });
+         // 回复事件委托
+         msgBoard.addEventListener("click",e=>{
+             if(e.target.classList.contains("reply-btn")){
+                 let idx = e.target.dataset.reply;
+                 let input = document.querySelector(`.reply-input[data-idx="${idx}"]`);
+                 let repVal = input.value.trim();
+                 if(!repVal) return alert("回复内容不能为空");
+                 msgList[idx].replyArr.push(repVal);
+                 renderMsg();
+             }
+         });
+         // 初始化全部
+         showRandomQuote();
+         updateClock();
+         slideLoop();
+         renderMsg();
+     </script>
+ </body>
+ </html>
