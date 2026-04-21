@@ -1,0 +1,362 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+
+/* 导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: #FFB72B;
+    z-index: 999;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  height: 100%;
+  background: #FFB72B;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item-container {
+    position: relative;
+}
+
+.nav-item {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: #222;
+    text-decoration: none;
+    font-weight: bold;
+    background: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    height: 60px;
+    line-height: 60px;
+}
+
+.nav-item:hover {
+    background: #ddd;
+}
+
+/* 二维码弹窗 */
+.qr-popup {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 1rem;
+    border: 2px solid #FFB72B;
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.nav-item-container:hover .qr-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+.qr-popup img {
+    width: 120px;
+    border: 1px solid #333;
+    margin-bottom: 0.5rem;
+}
+
+.qr-popup p {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* 头部Banner */
+.hero {
+    margin-top: 60px;
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-bg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: 100px;
+}
+
+.logo-img img {
+    width: 300px;
+    height: auto;
+    margin: 0 auto 1rem;
+}
+
+.slogan {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
+}
+
+.card h3 {
+  margin-bottom: 1rem;
+}
+
+.quote {
+  color: #ff69b4;
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.card p {
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.about-section {
+  background: #f9f9f9;
+}
+
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.about-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid #9932cc;
+  text-align: center;
+}
+
+.about-card h4 {
+  margin-bottom: 1rem;
+}
+
+.contact-section {
+  background: #f0f8ff;
+}
+
+.contact-content {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 2px solid #2e8b57;
+}
+
+.recruit-list {
+  margin-left: 1.5rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.ps {
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.contact-btn {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.qa-section {
+  background: #e6f7ff;
+}
+
+.faq-item {
+  background: #fff;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1rem;
+  text-align: left;
+  background: #f8f8f8;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.faq-answer {
+  padding: 0 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+
+.faq-answer p {
+  padding: 1rem 0;
+  line-height: 1.6;
+}
+
+/* 1. 卡片容器：让三个卡片横向排列 */
+.card-container {
+    display: flex;
+    gap: 2rem; /* 卡片之间的间距 */
+    justify-content: center;
+    flex-wrap: wrap; /* 屏幕小的时候自动换行 */
+    margin-top: 2rem;
+}
+
+/* 2. 核心卡片样式：紫色边框+圆角 */
+.feature-card {
+    border: 3px solid #9c27b0; /* 紫色边框，和你图片里的一致 */
+    border-radius: 15px; /* 圆角，和图片里的卡片对应 */
+    padding: 1.5rem;
+    width: 250px; /* 卡片宽度，和图片比例匹配 */
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* 关键：给动画做过渡，放大效果会更丝滑 */
+    transition: transform 0.3s ease;
+}
+
+/* 3. 悬停放大效果：鼠标放上去就变大 */
+.feature-card:hover {
+    transform: scale(1.08); /* 放大1.08倍，不会太夸张 */
+    box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3); /* 加一点阴影，更有立体感 */
+}
+
+/* 4. 卡片里的文字样式，和图片对齐 */
+.card-title {
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* 5. 图标占位（可选，和图片里的图标对应） */
+.icon-box, .icon-hex, .icon-clock {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+.icon-hex {
+    border-radius: 10px;
+}
+.icon-clock {
+    border-radius: 50%;
+}
+
+/* 6. 适配手机屏幕 */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .feature-card {
+        width: 80%;
+    }
+}
+
+/* Contact Us 文字样式 */
+.contact-text {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+}
+
+.contact-text p {
+    margin: 0.8rem 0;
+    font-size: 1rem;
+}
+
+.ps-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1.5rem;
+}
+
+/* 按钮组：让三个按钮横向排列 */
+.button-group {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* 通用按钮样式 */
+.contact-btn {
+    display: inline-block;
+    background-color: #28a745; /* 绿色，和你图片里的按钮颜色一致 */
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* 按钮hover效果 */
+.contact-btn:hover {
+    background-color: #218838; /* 鼠标放上去深一点的绿色 */
+}
+
+/* 适配手机屏幕 */
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    .contact-btn {
+        width: 80%;
+        text-align: center;
+    }
+}
+
